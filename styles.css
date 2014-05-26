@@ -1,0 +1,16 @@
+body{
+  font-size:11px;
+}
+
+#container{
+  /*border:1px solid black;*/
+}
+
+#toc, .infobox_v2, .infobox_v3, .mw-editsection, #bandeau-portail{
+  display:none;
+}
+
+.row{
+  padding:20px 40px;
+  border-bottom: 1px solid black;
+}
