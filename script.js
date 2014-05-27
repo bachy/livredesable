@@ -3,10 +3,17 @@ jQuery(document).ready(function($) {
   var first_load_length = 6;
   var first_content_loaded = 0;
   var wiki_api_path = "https://fr.wikipedia.org/w/api.php?callback=?";
+  var lastScrollTop = $(document).scrollTop();
 
   function init(){
+    addContent(first_load_length, "after")
+    $(document).scroll(onDocumentScroll);
+  };
+
+  function addContent(length, pos) {
+
     for (var i = first_load_length; i >= 0; i--) {
-      searchWikiPedia(getRandomWord(3));
+      searchWikiPedia(getRandomWord(3), pos);
     };
   };
 
@@ -26,9 +33,9 @@ jQuery(document).ready(function($) {
       word += i*2<length-1 ? randVowel : '';
     }
     return word;
-  }
+  };
 
-  function searchWikiPedia(string){
+  function searchWikiPedia(string, pos){
     $.getJSON(wiki_api_path,
       {
         srsearch: string,
@@ -43,7 +50,7 @@ jQuery(document).ready(function($) {
           i++;
         }
         var rand_title = data.query.search[Math.floor(Math.random()*i)].title;
-        getWikiPageContent(rand_title);
+        loadWikiPageContent(rand_title, pos);
       });
   };
 
@@ -80,7 +87,7 @@ jQuery(document).ready(function($) {
 
   */
 
-  function getWikiPageContent(title){
+  function loadWikiPageContent(title, pos){
     $.getJSON(wiki_api_path,
       {
         action:"parse",
@@ -91,7 +98,7 @@ jQuery(document).ready(function($) {
       })
       .done(function(data) {
         // console.log('wiki page content loaded');
-        onGetWikiPageContent(data);
+        onGetWikiPageContent(data, pos);
       })
       .fail(function( jqxhr, textStatus, error ) {
         var err = textStatus + ", " + error;
@@ -99,7 +106,7 @@ jQuery(document).ready(function($) {
       });
   };
 
-  function onGetWikiPageContent(data){
+  function onGetWikiPageContent(data, pos){
     console.info('onGetWikiPage', data);
     var $row = $('<div>').addClass('row').appendTo('.container');
     var $title = $('<h1>').addClass('title').appendTo($row);
@@ -107,9 +114,23 @@ jQuery(document).ready(function($) {
 
     $title.append(data.parse.title);
 
-    $.each(data.parse.text, function(elmt){
-      $content.append(data.parse.text[elmt]);
-    });
+    switch(pos){
+      case 'after':
+        $.each(data.parse.text, function(elmt){
+          $content.append(data.parse.text[elmt]);
+        });
+        break;
+      case 'before':
+        $.each(data.parse.text, function(elmt){
+          $content.prepend(data.parse.text[elmt]);
+        });
+        break;
+    }
+
+
+    // $content.children('p').each(function(){
+    //   $(this).columnize({columns: 2 });
+    // });
 
     onContentDisplayed();
   };
@@ -121,6 +142,20 @@ jQuery(document).ready(function($) {
       var $target = $('.row').eq(Math.floor(first_load_length/2));
       $('body').scrollTo($target);
     };
+  };
+
+  function onDocumentScroll(event){
+    // // console.log('onDocmentScroll', event);
+    // if(lastScrollTop > $(document).scrollTop()){
+    //   // console.log('up');
+    //   if($('.container .row:first-child').visible(true))
+    //     addContent(2, "before");
+    // }else{
+    //   // console.log('down');
+    //   if($('.container .row:last-child').visible(true))
+    //     addContent(2, "after");
+    // }
+    // lastScrollTop = $(document).scrollTop();
   };
 
   init();
