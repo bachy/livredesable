@@ -1,5 +1,40 @@
+@font-face {
+    font-family: 'dada_groteskbook';
+    src: url('font/dadagrotesk-book-webfont.eot');
+    src: url('font/dadagrotesk-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/dadagrotesk-book-webfont.woff') format('woff'),
+         url('font/dadagrotesk-book-webfont.ttf') format('truetype'),
+         url('font/dadagrotesk-book-webfont.svg#dada_groteskbook') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'dada_groteskmedium';
+    src: url('font/dadagrotesk-medium-webfont.eot');
+    src: url('font/dadagrotesk-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/dadagrotesk-medium-webfont.woff') format('woff'),
+         url('font/dadagrotesk-medium-webfont.ttf') format('truetype'),
+         url('font/dadagrotesk-medium-webfont.svg#dada_groteskmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'dada_groteskbold';
+    src: url('font/dadagrotesk-bold-webfont.eot');
+    src: url('font/dadagrotesk-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/dadagrotesk-bold-webfont.woff') format('woff'),
+         url('font/dadagrotesk-bold-webfont.ttf') format('truetype'),
+         url('font/dadagrotesk-bold-webfont.svg#dada_groteskbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body{
+  font-family:'dada_groteskbook';
   font-size:11px;
+  color: black;
 }
 
 #container{
@@ -12,5 +47,70 @@ body{
 
 .row{
   padding:20px 40px;
-  border-bottom: 1px solid black;
+  border-bottom: 10px solid black;
+  width: 700px;
 }
+
+h1, .h1 {
+  font-family:'dada_groteskbold';
+  font-size: 46px;
+}
+
+h2 {
+  font-family:'dada_groteskmedium';
+}
+
+th{
+  font-size: 9px;
+}
+
+b {
+  font-family: "dada_groteskbold";
+  font-weight: normal;
+}
+
+a{
+  color: #000000;
+  pointer-events: none;
+  cursor: default;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  margin:0; 
+  padding:0; 
+  list-style-type: none;;
+}
+
+.nowrap{
+  display: none;
+}
+
+element.style:{
+  background-color: #FFFFFF;
+}
+
+table {
+  display: none;
+}
+
+.references {
+  color: black;
+}
+
+.gallerytext{
+  text-align: left;
+}
+
+p {
+  text-align: left;
+}
+
+tt {
+  text-align: left;
+}
+
